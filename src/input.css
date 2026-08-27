@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .portfolio-tag {
+    @apply inline-flex items-center gap-1.5 h-10 px-4 py-3 rounded-full text-lime text-sm font-medium whitespace-nowrap;
+    background: rgba(217, 253, 24, 0.1);
+    border: 1px solid rgba(217, 253, 24, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+  .portfolio-btn {
+    @apply inline-flex items-center gap-2 rounded-2xl bg-lime hover:bg-[#F1FFA7] transition-colors duration-200 px-5 py-[18px] text-base font-display font-medium text-text-primary w-fit;
+  }
+}
