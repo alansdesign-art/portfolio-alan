@@ -135,17 +135,18 @@
   </nav>
 
   <header id="home" class="relative overflow-hidden flex flex-col md:block bg-[#22201C]">
-    <div class="hidden md:block absolute inset-0 z-0" aria-hidden="true">
+    <div id="hero-scrub-area" class="hidden md:block absolute inset-0 z-0" aria-hidden="true">
       <div class="absolute inset-0 overflow-hidden">
         <video
+          id="hero-scrub-video"
           class="absolute inset-0 w-full h-full object-cover"
-          autoplay
           muted
-          loop
           playsinline
-          poster="assets/hero-bg-poster.jpg"
+          preload="auto"
+          disableremoteplayback
+          poster="assets/hero-scrub-poster.jpg"
         >
-          <source src="assets/hero-bg.mp4" type="video/mp4" />
+          <source src="assets/hero-scrub.mp4" type="video/mp4" />
         </video>
       </div>
       <div
@@ -1349,6 +1350,117 @@
       } else {
         revealAll();
       }
+    })();
+  </script>
+
+  <!--
+    Cursor-scrub hero video (desktop only).
+    Re-encode the source with a very tight keyframe interval so scrubbing
+    looks frame-accurate:
+    ffmpeg -i in.mp4 -c:v libx264 -preset slow -crf 18 -g 2 -keyint_min 2 \
+      -x264-params "scenecut=0" -profile:v high -pix_fmt yuv420p \
+      -movflags +faststart -an out.mp4
+    Note: -g 1 (literally every frame a keyframe) makes ffmpeg's mp4 muxer
+    omit the sync-sample table, which breaks Chromium's seekable range
+    entirely (currentTime writes silently no-op). -g 2 keeps the table and
+    is visually indistinguishable given the smoothing below.
+  -->
+  <script>
+    (function () {
+      var video = document.getElementById('hero-scrub-video');
+      // Track pointer position on the whole header, not just the video's
+      // own layer: the foreground content sits above it (z-10 vs z-0) and
+      // would otherwise swallow pointermove before it reaches the video area.
+      var area = document.getElementById('home');
+      if (!video || !area) return;
+
+      var mountedAt = Date.now();
+
+      var AXIS = 'horizontal'; // 'horizontal' | 'vertical'
+      var REVERSE = false;
+      var SMOOTHING = 0.22; // 0.02 - 1, higher = snappier
+      var EPSILON = 0.008;
+
+      var ready = false;
+      var seeking = false;
+      var duration = NaN;
+      var targetTime = 0;
+      var currentTime = 0;
+      var rafId = null;
+      var normX = 0;
+      var normY = 0;
+
+      function clamp01(n) {
+        return Math.max(0, Math.min(1, n));
+      }
+
+      function onSeeking() {
+        seeking = true;
+      }
+      function onSeeked() {
+        seeking = false;
+      }
+      function onLoadedMetadata() {
+        duration = video.duration;
+      }
+
+      // Right after canplaythrough, Chromium can briefly report duration
+      // and a full buffered range while its internal seek index is not
+      // finalized yet; a currentTime write in that window silently no-ops.
+      // Poll the seekable range itself instead of trusting the event, with
+      // a time-based fallback so the video never stays frozen on frame 0.
+      function checkReady() {
+        if (ready || !isFinite(duration) || duration <= 0) return;
+        var sr = video.seekable;
+        if (sr.length && sr.end(sr.length - 1) >= duration - 0.05) {
+          ready = true;
+          return;
+        }
+        if (Date.now() - mountedAt > 2000) {
+          ready = true;
+        }
+      }
+
+      function onPointerMove(e) {
+        var rect = area.getBoundingClientRect();
+        normX = clamp01((e.clientX - rect.left) / rect.width);
+        normY = clamp01((e.clientY - rect.top) / rect.height);
+      }
+
+      function tick() {
+        if (!ready) checkReady();
+        if (ready && isFinite(duration) && duration > 0) {
+          var pos = AXIS === 'horizontal' ? normX : normY;
+          if (REVERSE) pos = 1 - pos;
+          targetTime = pos * duration;
+          currentTime = currentTime + (targetTime - currentTime) * SMOOTHING;
+
+          if (!seeking && Math.abs(video.currentTime - currentTime) > EPSILON) {
+            video.currentTime = currentTime;
+          }
+        }
+        rafId = requestAnimationFrame(tick);
+      }
+
+      video.addEventListener('loadedmetadata', onLoadedMetadata);
+      video.addEventListener('seeking', onSeeking);
+      video.addEventListener('seeked', onSeeked);
+      area.addEventListener('pointermove', onPointerMove);
+
+      video.load();
+      video.play().then(function () {
+        video.pause();
+      }).catch(function () {});
+
+      rafId = requestAnimationFrame(tick);
+
+      window.addEventListener('pagehide', function () {
+        if (rafId) cancelAnimationFrame(rafId);
+        area.removeEventListener('pointermove', onPointerMove);
+        video.removeEventListener('loadedmetadata', onLoadedMetadata);
+        video.removeEventListener('seeking', onSeeking);
+        video.removeEventListener('seeked', onSeeked);
+      });
     })();
   </script>
 
