@@ -139,7 +139,7 @@
       <div class="absolute inset-0 overflow-hidden">
         <video
           id="hero-scrub-video"
-          class="absolute inset-0 w-full h-full object-cover"
+          class="absolute inset-0 w-full h-full object-contain"
           muted
           playsinline
           preload="auto"
@@ -1376,8 +1376,14 @@
 
       var mountedAt = Date.now();
 
-      var AXIS = 'horizontal'; // 'horizontal' | 'vertical'
-      var REVERSE = true;
+      // Timestamps (seconds) matched to this specific video: neutral/frontal
+      // pose, then the peak of each look direction. Re-check these if the
+      // source video is ever swapped again.
+      var NEUTRAL_TIME = 0.2;
+      var LEFT_TIME = 2.2;
+      var RIGHT_TIME = 4.6;
+      var UP_TIME = 6.7;
+      var DOWN_TIME = 7.5;
       var SMOOTHING = 0.22; // 0.02 - 1, higher = snappier
       var EPSILON = 0.008;
 
@@ -1427,12 +1433,27 @@
         normY = clamp01((e.clientY - rect.top) / rect.height);
       }
 
+      // Cursor position relative to the header's center picks which look
+      // direction to head towards (dominant axis wins ties towards X), and
+      // distance from center (0 at center, 1 at the edge) blends from the
+      // neutral pose into that direction's peak frame.
+      function computeTargetTime() {
+        var dx = normX - 0.5;
+        var dy = normY - 0.5;
+        var mag = Math.min(1, Math.sqrt(dx * dx + dy * dy) / 0.5);
+        var peak;
+        if (Math.abs(dx) >= Math.abs(dy)) {
+          peak = dx < 0 ? LEFT_TIME : RIGHT_TIME;
+        } else {
+          peak = dy < 0 ? UP_TIME : DOWN_TIME;
+        }
+        return NEUTRAL_TIME + (peak - NEUTRAL_TIME) * mag;
+      }
+
       function tick() {
         if (!ready) checkReady();
         if (ready && isFinite(duration) && duration > 0) {
-          var pos = AXIS === 'horizontal' ? normX : normY;
-          if (REVERSE) pos = 1 - pos;
-          targetTime = pos * duration;
+          targetTime = computeTargetTime();
           currentTime = currentTime + (targetTime - currentTime) * SMOOTHING;
 
           if (!seeking && Math.abs(video.currentTime - currentTime) > EPSILON) {
