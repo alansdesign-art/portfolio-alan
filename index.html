@@ -1379,10 +1379,12 @@
 
       // Timestamps (seconds) matched to this specific video's look
       // directions. Re-check these if the source video is ever swapped again.
-      var LEFT_TIME = 2;
-      var RIGHT_TIME = 5;
-      var UP_TIME = 7;
-      var DOWN_TIME = 8;
+      // This video only turns left/right (no distinct up/down pose), so the
+      // vertical zones just settle on the neutral frontal frame.
+      var LEFT_TIME = 4;
+      var RIGHT_TIME = 2.6;
+      var UP_TIME = 6;
+      var DOWN_TIME = 6;
       var SMOOTHING = 0.22; // 0.02 - 1, higher = snappier
       var EPSILON = 0.008;
 
