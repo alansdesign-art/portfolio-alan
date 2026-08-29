@@ -1381,14 +1381,16 @@
 
       var mountedAt = Date.now();
 
-      // Timestamps (seconds) matched to this specific video's look
-      // directions. Re-check these if the source video is ever swapped again.
-      // This video only turns left/right (no distinct up/down pose), so the
-      // vertical zones just settle on the neutral frontal frame.
-      var LEFT_TIME = 4;
-      var RIGHT_TIME = 2.6;
-      var UP_TIME = 6;
-      var DOWN_TIME = 6;
+      // Five reference mouse zones (normalized x/y over the header area) each
+      // paired with the video timestamp that should play there. Re-check
+      // these if the source video is ever swapped again.
+      var ZONES = [
+        { x: 0.18, y: 0.7, time: 3.5 }, // esquerda inferior
+        { x: 0.18, y: 0.23, time: 4 }, // esquerda superior
+        { x: 0.53, y: 0.23, time: 6 }, // superior
+        { x: 0.86, y: 0.23, time: 2.6 }, // direita superior
+        { x: 0.72, y: 0.72, time: 2.2 } // direita inferior
+      ];
       var SMOOTHING = 0.22; // 0.02 - 1, higher = snappier
       var EPSILON = 0.008;
 
@@ -1438,15 +1440,22 @@
         normY = clamp01((e.clientY - rect.top) / rect.height);
       }
 
-      // Header split into three horizontal bands: the left/right thirds map
-      // straight to LEFT/RIGHT regardless of vertical position, and only the
-      // middle third looks at vertical position to choose UP vs DOWN.
+      // Inverse-distance blend across the five reference zones: closer zones
+      // dominate, and the result is continuous everywhere (no hard edges).
       function computeTargetTime() {
-        var leftWeight = clamp01((1 / 3 - normX) / (1 / 3));
-        var rightWeight = clamp01((normX - 2 / 3) / (1 / 3));
-        var centerWeight = 1 - leftWeight - rightWeight;
-        var centerTime = UP_TIME + (DOWN_TIME - UP_TIME) * normY;
-        return leftWeight * LEFT_TIME + rightWeight * RIGHT_TIME + centerWeight * centerTime;
+        var totalWeight = 0;
+        var weightedTime = 0;
+        for (var i = 0; i < ZONES.length; i++) {
+          var zone = ZONES[i];
+          var dx = normX - zone.x;
+          var dy = normY - zone.y;
+          var distSq = dx * dx + dy * dy;
+          if (distSq < 0.0001) return zone.time;
+          var weight = 1 / distSq;
+          totalWeight += weight;
+          weightedTime += weight * zone.time;
+        }
+        return weightedTime / totalWeight;
       }
 
       function tick() {
