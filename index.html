@@ -1396,6 +1396,13 @@
         { x: 0.86, y: 0.23, time: 6 }, // direita superior
         { x: 0.72, y: 0.72, time: 7.8 } // direita inferior (video duration is exactly 8s; avoid seeking to the exact end)
       ];
+
+      // Rectangular zones (normalized x0/y0/x1/y1) that pin the video to a
+      // fixed timestamp anywhere inside them, overriding the smooth blend
+      // above. Checked in order; first match wins.
+      var RECT_ZONES = [
+        { x0: 0, y0: 0.49, x1: 0.44, y1: 1, time: 1 } // esquerda inferior (travado)
+      ];
       var SMOOTHING = 0.22; // 0.02 - 1, higher = snappier
       var EPSILON = 0.008;
 
@@ -1447,7 +1454,15 @@
 
       // Inverse-distance blend across the five reference zones: closer zones
       // dominate, and the result is continuous everywhere (no hard edges).
+      // A rectangular zone match takes priority and pins the exact time.
       function computeTargetTime() {
+        for (var r = 0; r < RECT_ZONES.length; r++) {
+          var rect = RECT_ZONES[r];
+          if (normX >= rect.x0 && normX <= rect.x1 && normY >= rect.y0 && normY <= rect.y1) {
+            return rect.time;
+          }
+        }
+
         var totalWeight = 0;
         var weightedTime = 0;
         for (var i = 0; i < ZONES.length; i++) {
