@@ -149,7 +149,7 @@
         <video
           id="hero-scrub-video"
           class="absolute"
-          style="top: 0; height: 100%; width: auto; max-width: none; left: 100%; transform: translateX(-75%); mask-image: linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%); -webkit-mask-image: linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%)"
+          style="top: 0; height: 100%; width: auto; max-width: none; left: 100%; transform: translateX(-75%); mask-image: linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%); -webkit-mask-image: linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%); opacity: 0; transition: opacity 900ms ease-out"
           muted
           playsinline
           preload="auto"
@@ -1030,15 +1030,11 @@
         }, 85);
       }
 
-      var START_DELAY = 2000;
-
-      setTimeout(function () {
-        if (headingTarget) {
-          typeSegments(segments, revealSecondary);
-        } else {
-          revealSecondary();
-        }
-      }, START_DELAY);
+      if (headingTarget) {
+        typeSegments(segments, revealSecondary);
+      } else {
+        revealSecondary();
+      }
     })();
   </script>
 
@@ -1484,6 +1480,12 @@
       video.play().then(function () {
         video.pause();
       }).catch(function () {});
+
+      // Fade the video (and its poster) in smoothly instead of popping in.
+      // setTimeout (not rAF) so it still fires promptly on a backgrounded tab.
+      setTimeout(function () {
+        video.style.opacity = '1';
+      }, 20);
 
       rafId = requestAnimationFrame(tick);
 
