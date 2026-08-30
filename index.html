@@ -135,17 +135,28 @@
   </nav>
 
   <header id="home" class="relative overflow-hidden flex flex-col md:block bg-[#22201C]">
-    <div class="hidden md:block absolute inset-0 z-0" aria-hidden="true">
+    <div
+      class="hidden md:block absolute z-0"
+      style="top: 0; bottom: 0; right: 0; left: calc(50% + 720px); background-color: #000000"
+      aria-hidden="true"
+    ></div>
+    <div
+      id="hero-scrub-area"
+      class="hidden md:block absolute inset-0 mx-auto max-w-[1440px] z-0"
+      aria-hidden="true"
+    >
       <div class="absolute inset-0 overflow-hidden">
         <video
-          class="absolute inset-0 w-full h-full object-cover"
-          autoplay
+          id="hero-scrub-video"
+          class="absolute"
+          style="top: 0; height: 100%; width: auto; max-width: none; left: 100%; transform: translateX(-75%); mask-image: linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%); -webkit-mask-image: linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%); opacity: 0; transition: opacity 900ms ease-out"
           muted
-          loop
           playsinline
-          poster="assets/hero-bg-poster.jpg"
+          preload="auto"
+          disableremoteplayback
+          poster="assets/hero-scrub-poster.jpg"
         >
-          <source src="assets/hero-bg.mp4" type="video/mp4" />
+          <source src="assets/hero-scrub.mp4" type="video/mp4" />
         </video>
       </div>
       <div
@@ -162,9 +173,9 @@
         muted
         loop
         playsinline
-        poster="assets/hero-bg-poster.jpg"
+        poster="assets/hero-scrub-poster.jpg"
       >
-        <source src="assets/hero-bg.mp4" type="video/mp4" />
+        <source src="assets/hero-scrub.mp4" type="video/mp4" />
       </video>
       <div
         class="absolute inset-0"
@@ -189,6 +200,7 @@
         src="assets/icons/logo-alan.png"
         alt="Logo Alan"
         class="hidden md:block w-[41.5px] h-[36.55px]"
+        style="margin-top: 14px"
       />
 
       <div class="mt-0 md:mt-[120px] flex flex-col lg:flex-row lg:items-end lg:justify-between gap-10 lg:gap-20">
@@ -450,10 +462,7 @@
               <div class="flex-1 flex flex-col justify-between p-4 gap-6 min-w-0">
                 <div class="flex items-start justify-between gap-4">
                   <p class="font-display font-medium text-lime text-base">/01</p>
-                  <span class="portfolio-tag">
-                    <img src="https://www.figma.com/api/mcp/asset/8e19d3bc-7932-47d6-bf57-fd7e5ed0fe87.svg" alt="" class="w-6 h-6" />
-                    Research
-                  </span>
+                  <span class="portfolio-tag"><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>Research</span>
                 </div>
                 <div class="flex flex-col gap-4">
                   <p class="font-display font-medium text-2xl text-white">Primeira etapa</p>
@@ -1021,15 +1030,11 @@
         }, 85);
       }
 
-      var START_DELAY = 2000;
-
-      setTimeout(function () {
-        if (headingTarget) {
-          typeSegments(segments, revealSecondary);
-        } else {
-          revealSecondary();
-        }
-      }, START_DELAY);
+      if (headingTarget) {
+        typeSegments(segments, revealSecondary);
+      } else {
+        revealSecondary();
+      }
     })();
   </script>
 
@@ -1349,6 +1354,148 @@
       } else {
         revealAll();
       }
+    })();
+  </script>
+
+  <!--
+    Cursor-scrub hero video (desktop only).
+    Re-encode the source with a very tight keyframe interval so scrubbing
+    looks frame-accurate:
+    ffmpeg -i in.mp4 -c:v libx264 -preset slow -crf 18 -g 2 -keyint_min 2 \
+      -x264-params "scenecut=0" -profile:v high -pix_fmt yuv420p \
+      -movflags +faststart -an out.mp4
+    Note: -g 1 (literally every frame a keyframe) makes ffmpeg's mp4 muxer
+    omit the sync-sample table, which breaks Chromium's seekable range
+    entirely (currentTime writes silently no-op). -g 2 keeps the table and
+    is visually indistinguishable given the smoothing below.
+  -->
+  <script>
+    (function () {
+      var video = document.getElementById('hero-scrub-video');
+      // Track pointer position on the whole header, not just the video's
+      // own layer: the foreground content sits above it (z-10 vs z-0) and
+      // would otherwise swallow pointermove before it reaches the video area.
+      var area = document.getElementById('home');
+      if (!video || !area) return;
+
+      var mountedAt = Date.now();
+
+      // Five reference mouse zones (normalized x/y over the header area) each
+      // paired with the video timestamp that should play there. Re-check
+      // these if the source video is ever swapped again.
+      var ZONES = [
+        { x: 0.28, y: 0.7, time: 1 }, // esquerda inferior
+        { x: 0.44, y: 0.72, time: 2 }, // esquerda
+        { x: 0.53, y: 0.23, time: 6 }, // superior
+        { x: 0.86, y: 0.23, time: 6 }, // direita superior
+        { x: 0.72, y: 0.72, time: 7.8 }, // direita inferior (video duration is exactly 8s; avoid seeking to the exact end)
+        { x: 0.545, y: 0.75, time: 0 } // baixo
+      ];
+      var SMOOTHING = 0.22; // 0.02 - 1, higher = snappier
+      var EPSILON = 0.008;
+
+      var ready = false;
+      var seeking = false;
+      var duration = NaN;
+      var targetTime = 0;
+      var currentTime = 0;
+      var rafId = null;
+      var normX = 0;
+      var normY = 0;
+
+      function clamp01(n) {
+        return Math.max(0, Math.min(1, n));
+      }
+
+      function onSeeking() {
+        seeking = true;
+      }
+      function onSeeked() {
+        seeking = false;
+      }
+      function onLoadedMetadata() {
+        duration = video.duration;
+      }
+
+      // Right after canplaythrough, Chromium can briefly report duration
+      // and a full buffered range while its internal seek index is not
+      // finalized yet; a currentTime write in that window silently no-ops.
+      // Poll the seekable range itself instead of trusting the event, with
+      // a time-based fallback so the video never stays frozen on frame 0.
+      function checkReady() {
+        if (ready || !isFinite(duration) || duration <= 0) return;
+        var sr = video.seekable;
+        if (sr.length && sr.end(sr.length - 1) >= duration - 0.05) {
+          ready = true;
+          return;
+        }
+        if (Date.now() - mountedAt > 2000) {
+          ready = true;
+        }
+      }
+
+      function onPointerMove(e) {
+        var rect = area.getBoundingClientRect();
+        normX = clamp01((e.clientX - rect.left) / rect.width);
+        normY = clamp01((e.clientY - rect.top) / rect.height);
+      }
+
+      // Inverse-distance blend across the five reference zones: closer zones
+      // dominate, and the result is continuous everywhere (no hard edges).
+      function computeTargetTime() {
+        var totalWeight = 0;
+        var weightedTime = 0;
+        for (var i = 0; i < ZONES.length; i++) {
+          var zone = ZONES[i];
+          var dx = normX - zone.x;
+          var dy = normY - zone.y;
+          var distSq = dx * dx + dy * dy;
+          if (distSq < 0.0001) return zone.time;
+          var weight = 1 / distSq;
+          totalWeight += weight;
+          weightedTime += weight * zone.time;
+        }
+        return weightedTime / totalWeight;
+      }
+
+      function tick() {
+        if (!ready) checkReady();
+        if (ready && isFinite(duration) && duration > 0) {
+          targetTime = computeTargetTime();
+          currentTime = currentTime + (targetTime - currentTime) * SMOOTHING;
+
+          if (!seeking && Math.abs(video.currentTime - currentTime) > EPSILON) {
+            video.currentTime = currentTime;
+          }
+        }
+        rafId = requestAnimationFrame(tick);
+      }
+
+      video.addEventListener('loadedmetadata', onLoadedMetadata);
+      video.addEventListener('seeking', onSeeking);
+      video.addEventListener('seeked', onSeeked);
+      area.addEventListener('pointermove', onPointerMove);
+
+      video.load();
+      video.play().then(function () {
+        video.pause();
+      }).catch(function () {});
+
+      // Fade the video (and its poster) in smoothly instead of popping in.
+      // setTimeout (not rAF) so it still fires promptly on a backgrounded tab.
+      setTimeout(function () {
+        video.style.opacity = '1';
+      }, 20);
+
+      rafId = requestAnimationFrame(tick);
+
+      window.addEventListener('pagehide', function () {
+        if (rafId) cancelAnimationFrame(rafId);
+        area.removeEventListener('pointermove', onPointerMove);
+        video.removeEventListener('loadedmetadata', onLoadedMetadata);
+        video.removeEventListener('seeking', onSeeking);
+        video.removeEventListener('seeked', onSeeked);
+      });
     })();
   </script>
 
