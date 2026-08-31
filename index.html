@@ -1493,24 +1493,23 @@
   </script>
 
   <!-- Clones the client-logo marquee into the header footer instead of
-       duplicating its large inline SVG markup a second time. Sized to
-       half the original logos, scoped so the #clientes section is
-       untouched. -->
-  <style>
-    #header-logos-footer svg.logo-lime {
-      height: 1.5rem !important;
-    }
-    #header-logos-footer .logo-marquee-track,
-    #header-logos-footer .logo-marquee-track > div {
-      gap: 2.5rem !important;
-    }
-  </style>
+       duplicating its large inline SVG markup a second time. -->
   <script>
     (function () {
       var source = document.querySelector('#clientes .logo-marquee-track');
       var target = document.getElementById('header-logos-footer');
       if (!source || !target) return;
-      target.appendChild(source.cloneNode(true));
+      var clone = source.cloneNode(true);
+      target.appendChild(clone);
+      // Cloning a node with a running CSS animation doesn't reliably restart
+      // it on the clone in every browser. Keep the shared class for its
+      // layout (flex/gap/width), but disable its animation and drive the
+      // same left-to-right loop explicitly via the Web Animations API.
+      clone.style.animation = 'none';
+      clone.animate(
+        [{ transform: 'translateX(0)' }, { transform: 'translateX(-50%)' }],
+        { duration: 42000, iterations: Infinity, easing: 'linear' }
+      );
     })();
   </script>
 
