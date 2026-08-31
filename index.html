@@ -1436,14 +1436,14 @@
       }
 
       // Header split into three horizontal bands: the left/right thirds map
-      // straight to LEFT/RIGHT regardless of vertical position, and only the
-      // middle third looks at vertical position to choose UP vs DOWN.
+      // straight to LEFT/RIGHT regardless of vertical position (constant
+      // across the whole band, not blended toward the center), and only the
+      // middle third looks at vertical position to choose UP vs DOWN. The
+      // per-frame SMOOTHING lerp still eases the crossing between bands.
       function computeTargetTime() {
-        var leftWeight = clamp01((1 / 3 - normX) / (1 / 3));
-        var rightWeight = clamp01((normX - 2 / 3) / (1 / 3));
-        var centerWeight = 1 - leftWeight - rightWeight;
-        var centerTime = UP_TIME + (DOWN_TIME - UP_TIME) * normY;
-        return leftWeight * LEFT_TIME + rightWeight * RIGHT_TIME + centerWeight * centerTime;
+        if (normX < 1 / 3) return LEFT_TIME;
+        if (normX > 2 / 3) return RIGHT_TIME;
+        return UP_TIME + (DOWN_TIME - UP_TIME) * normY;
       }
 
       function tick() {
