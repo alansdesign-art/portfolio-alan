@@ -1435,14 +1435,18 @@
         normY = clamp01((e.clientY - rect.top) / rect.height);
       }
 
-      // Header split into three horizontal bands: the left/right thirds map
-      // straight to LEFT/RIGHT regardless of vertical position (constant
-      // across the whole band, not blended toward the center), and only the
-      // middle third looks at vertical position to choose UP vs DOWN. The
-      // per-frame SMOOTHING lerp still eases the crossing between bands.
+      // Header split into three horizontal bands: left/right map straight to
+      // LEFT/RIGHT regardless of vertical position (constant across the
+      // whole band, not blended toward the center), and only the middle
+      // looks at vertical position to choose UP vs DOWN. The left boundary
+      // is measured to the text column's right edge (not a plain third) so
+      // the head stays put for as long as the cursor is over the text.
+      var LEFT_BOUNDARY = 0.4;
+      var RIGHT_BOUNDARY = 2 / 3;
+
       function computeTargetTime() {
-        if (normX < 1 / 3) return LEFT_TIME;
-        if (normX > 2 / 3) return RIGHT_TIME;
+        if (normX < LEFT_BOUNDARY) return LEFT_TIME;
+        if (normX > RIGHT_BOUNDARY) return RIGHT_TIME;
         return UP_TIME + (DOWN_TIME - UP_TIME) * normY;
       }
 
