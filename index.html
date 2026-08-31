@@ -1384,12 +1384,12 @@
       // paired with the video timestamp that should play there. Re-check
       // these if the source video is ever swapped again.
       var ZONES = [
-        { x: 0.28, y: 0.7, time: 1 }, // esquerda inferior
-        { x: 0.44, y: 0.72, time: 2 }, // esquerda
-        { x: 0.53, y: 0.23, time: 6 }, // superior
-        { x: 0.86, y: 0.23, time: 6 }, // direita superior
-        { x: 0.72, y: 0.72, time: 7.8 }, // direita inferior (video duration is exactly 8s; avoid seeking to the exact end)
-        { x: 0.545, y: 0.75, time: 0 } // baixo
+        { x: 0.28, y: 0.7, time: 4.85 }, // esquerda inferior
+        { x: 0.44, y: 0.72, time: 4.6 }, // esquerda
+        { x: 0.53, y: 0.23, time: 3.35 }, // superior (this video has a real up-look pose)
+        { x: 0.86, y: 0.23, time: 1.4 }, // direita superior
+        { x: 0.72, y: 0.72, time: 1.6 }, // direita inferior
+        { x: 0.545, y: 0.75, time: 7 } // baixo (no down-look pose in this video; use neutral)
       ];
       var SMOOTHING = 0.22; // 0.02 - 1, higher = snappier
       var EPSILON = 0.008;
