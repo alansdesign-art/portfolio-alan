@@ -1493,7 +1493,18 @@
   </script>
 
   <!-- Clones the client-logo marquee into the header footer instead of
-       duplicating its large inline SVG markup a second time. -->
+       duplicating its large inline SVG markup a second time. Sized to
+       half the original logos, scoped so the #clientes section is
+       untouched. -->
+  <style>
+    #header-logos-footer svg.logo-lime {
+      height: 1.5rem !important;
+    }
+    #header-logos-footer .logo-marquee-track,
+    #header-logos-footer .logo-marquee-track > div {
+      gap: 2.5rem !important;
+    }
+  </style>
   <script>
     (function () {
       var source = document.querySelector('#clientes .logo-marquee-track');
