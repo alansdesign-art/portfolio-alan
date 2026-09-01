@@ -14,4 +14,39 @@
   .portfolio-btn {
     @apply inline-flex items-center gap-2 rounded-2xl bg-lime hover:bg-[#F1FFA7] transition-colors duration-200 px-5 py-[18px] text-base font-display font-medium text-text-primary w-fit;
   }
+
+  @media (min-width: 768px) {
+    .nav-glass {
+      backdrop-filter: url(#glass-distortion) blur(3px) saturate(160%);
+      -webkit-backdrop-filter: blur(14px) saturate(160%);
+    }
+  }
+}
+
+/* Native cross-document page transitions (Chromium: fade + slight slide;
+   browsers without support just navigate instantly, no fallback needed). */
+@view-transition {
+  navigation: auto;
+}
+
+::view-transition-old(root) {
+  animation: page-out 360ms cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+::view-transition-new(root) {
+  animation: page-in 420ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes page-out {
+  to {
+    opacity: 0;
+    transform: translateY(-16px) scale(0.99);
+  }
+}
+
+@keyframes page-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.99);
+  }
 }
