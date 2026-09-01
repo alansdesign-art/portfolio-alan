@@ -1247,14 +1247,17 @@
 
       var mountedAt = Date.now();
 
-      // Timestamps (seconds) matched to this specific video's look
-      // directions. Re-check these if the source video is ever swapped again.
-      // This footage is a single continuous sweep (center -> left -> center
-      // -> right), not four independent poses, so there's no separate
-      // up/down target -- only left/center/right.
-      var LEFT_TIME = 3.25;
-      var CENTER_TIME = 0.75;
-      var RIGHT_TIME = 9.5;
+      // Five reference mouse zones (normalized x/y over the header area) each
+      // paired with the video timestamp that should play there, calibrated
+      // from the user's annotated reference screenshot. Re-check these if
+      // the source video is ever swapped again.
+      var ZONES = [
+        { x: 0.15, y: 0.2, time: 4 }, // canto esquerdo superior
+        { x: 0.15, y: 0.8, time: 3 }, // canto esquerdo inferior
+        { x: 0.5, y: 0.5, time: 7 }, // centro
+        { x: 0.85, y: 0.2, time: 8 }, // canto direito superior
+        { x: 0.85, y: 0.8, time: 10 } // canto direito inferior
+      ];
       var SMOOTHING = 0.22; // 0.02 - 1, higher = snappier
       var EPSILON = 0.008;
 
@@ -1304,18 +1307,22 @@
         normY = clamp01((e.clientY - rect.top) / rect.height);
       }
 
-      // Header split into three horizontal bands: left/right map straight to
-      // LEFT/RIGHT regardless of vertical position (constant across the
-      // whole band), and the middle band holds CENTER. The left boundary is
-      // measured to the text column's right edge (not a plain third) so the
-      // head stays put for as long as the cursor is over the text.
-      var LEFT_BOUNDARY = 0.5;
-      var RIGHT_BOUNDARY = 2 / 3;
-
+      // Inverse-distance blend across the five reference zones: closer zones
+      // dominate, and the result is continuous everywhere (no hard edges).
       function computeTargetTime() {
-        if (normX < LEFT_BOUNDARY) return LEFT_TIME;
-        if (normX > RIGHT_BOUNDARY) return RIGHT_TIME;
-        return CENTER_TIME;
+        var totalWeight = 0;
+        var weightedTime = 0;
+        for (var i = 0; i < ZONES.length; i++) {
+          var zone = ZONES[i];
+          var dx = normX - zone.x;
+          var dy = normY - zone.y;
+          var distSq = dx * dx + dy * dy;
+          if (distSq < 0.0001) return zone.time;
+          var weight = 1 / distSq;
+          totalWeight += weight;
+          weightedTime += weight * zone.time;
+        }
+        return weightedTime / totalWeight;
       }
 
       function tick() {
