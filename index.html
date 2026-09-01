@@ -135,7 +135,7 @@
   </nav>
 
   <header id="home" class="relative overflow-hidden flex flex-col md:flex md:flex-col md:min-h-screen bg-[#22201C]">
-    <div class="hidden md:block absolute inset-0 z-0" style="background-color: #060a0b" aria-hidden="true"></div>
+    <div class="hidden md:block absolute inset-0 z-0" style="background-color: #000000" aria-hidden="true"></div>
     <div
       id="hero-scrub-area"
       class="hidden md:block absolute inset-0 mx-auto max-w-[1440px] z-0"
@@ -163,12 +163,12 @@
         </video>
         <div
           class="pointer-events-none absolute -top-20 -right-20 w-72 h-72 rounded-full"
-          style="background: #060a0b; filter: blur(60px)"
+          style="background: #000000; filter: blur(60px)"
           aria-hidden="true"
         ></div>
         <div
           class="pointer-events-none absolute -top-20 -left-20 w-72 h-72 rounded-full"
-          style="background: #060a0b; filter: blur(60px)"
+          style="background: #000000; filter: blur(60px)"
           aria-hidden="true"
         ></div>
       </div>
@@ -176,7 +176,7 @@
 
     <div
       class="hidden md:block pointer-events-none absolute inset-y-0 right-0 z-[1]"
-      style="left: calc(50% + 655px); background-image: linear-gradient(to right, rgba(6,10,11,0) 0px, #060a0b 65px, #060a0b 100%)"
+      style="left: calc(50% + 655px); background-image: linear-gradient(to right, rgba(0,0,0,0) 0px, #000000 65px, #000000 100%)"
       aria-hidden="true"
     ></div>
 
@@ -1249,10 +1249,12 @@
 
       // Timestamps (seconds) matched to this specific video's look
       // directions. Re-check these if the source video is ever swapped again.
-      var LEFT_TIME = 1.8; // 2.0 has visible motion-blur on the eye
-      var RIGHT_TIME = 5;
-      var UP_TIME = 3;
-      var DOWN_TIME = 7;
+      // This footage is a single continuous sweep (center -> left -> center
+      // -> right), not four independent poses, so there's no separate
+      // up/down target -- only left/center/right.
+      var LEFT_TIME = 3.25;
+      var CENTER_TIME = 0.75;
+      var RIGHT_TIME = 9.5;
       var SMOOTHING = 0.22; // 0.02 - 1, higher = snappier
       var EPSILON = 0.008;
 
@@ -1304,17 +1306,16 @@
 
       // Header split into three horizontal bands: left/right map straight to
       // LEFT/RIGHT regardless of vertical position (constant across the
-      // whole band, not blended toward the center), and only the middle
-      // looks at vertical position to choose UP vs DOWN. The left boundary
-      // is measured to the text column's right edge (not a plain third) so
-      // the head stays put for as long as the cursor is over the text.
+      // whole band), and the middle band holds CENTER. The left boundary is
+      // measured to the text column's right edge (not a plain third) so the
+      // head stays put for as long as the cursor is over the text.
       var LEFT_BOUNDARY = 0.5;
       var RIGHT_BOUNDARY = 2 / 3;
 
       function computeTargetTime() {
         if (normX < LEFT_BOUNDARY) return LEFT_TIME;
         if (normX > RIGHT_BOUNDARY) return RIGHT_TIME;
-        return UP_TIME + (DOWN_TIME - UP_TIME) * normY;
+        return CENTER_TIME;
       }
 
       function tick() {
