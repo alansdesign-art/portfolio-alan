@@ -4,7 +4,7 @@
 
 @layer components {
   .portfolio-tag {
-    @apply inline-flex items-center gap-1.5 h-10 px-4 py-3 rounded-full text-lime text-sm font-medium whitespace-nowrap;
+    @apply inline-flex items-center gap-1.5 h-10 px-4 py-3 rounded-full text-lime text-sm font-light whitespace-nowrap;
     background: rgba(217, 253, 24, 0.1);
     border: 1px solid rgba(217, 253, 24, 0.1);
     backdrop-filter: blur(10px);
@@ -13,5 +13,47 @@
 
   .portfolio-btn {
     @apply inline-flex items-center gap-2 rounded-2xl bg-lime hover:bg-[#F1FFA7] transition-colors duration-200 px-5 py-[18px] text-base font-display font-medium text-text-primary w-fit;
+  }
+
+  @media (min-width: 768px) {
+    .nav-glass {
+      backdrop-filter: url(#glass-distortion) blur(3px) saturate(160%);
+      -webkit-backdrop-filter: blur(14px) saturate(160%);
+    }
+  }
+}
+
+/* Native cross-document page transitions (Chromium: a directional slide
+   with a touch of motion blur; browsers without support just navigate
+   instantly, no fallback needed). */
+@view-transition {
+  navigation: auto;
+}
+
+::view-transition-group(root) {
+  animation-duration: 550ms;
+}
+
+::view-transition-old(root) {
+  animation: page-out 450ms cubic-bezier(0.6, 0, 0.8, 0.2) both;
+}
+
+::view-transition-new(root) {
+  animation: page-in 550ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes page-out {
+  to {
+    opacity: 0;
+    transform: translateX(-64px) scale(0.94);
+    filter: blur(10px);
+  }
+}
+
+@keyframes page-in {
+  from {
+    opacity: 0;
+    transform: translateX(64px) scale(0.94);
+    filter: blur(10px);
   }
 }

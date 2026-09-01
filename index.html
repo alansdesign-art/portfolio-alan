@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
-    href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@300;400;500&family=Mulish:wght@400&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@300;400;500&family=Mulish:wght@300;400&display=swap"
     rel="stylesheet"
   />
   <link
@@ -135,7 +135,7 @@
   </nav>
 
   <header id="home" class="relative overflow-hidden flex flex-col md:flex md:flex-col md:min-h-screen bg-[#22201C]">
-    <div class="hidden md:block absolute inset-0 z-0" style="background-color: #060a0b" aria-hidden="true"></div>
+    <div class="hidden md:block absolute inset-0 z-0" style="background-color: #000000" aria-hidden="true"></div>
     <div
       id="hero-scrub-area"
       class="hidden md:block absolute inset-0 mx-auto max-w-[1440px] z-0"
@@ -163,16 +163,22 @@
         </video>
         <div
           class="pointer-events-none absolute -top-20 -right-20 w-72 h-72 rounded-full"
-          style="background: #060a0b; filter: blur(60px)"
+          style="background: #000000; filter: blur(60px)"
           aria-hidden="true"
         ></div>
         <div
           class="pointer-events-none absolute -top-20 -left-20 w-72 h-72 rounded-full"
-          style="background: #060a0b; filter: blur(60px)"
+          style="background: #000000; filter: blur(60px)"
           aria-hidden="true"
         ></div>
       </div>
     </div>
+
+    <div
+      class="hidden md:block pointer-events-none absolute inset-y-0 right-0 z-[1]"
+      style="left: calc(50% + 655px); background-image: linear-gradient(to right, rgba(0,0,0,0) 0px, #000000 65px, #000000 100%)"
+      aria-hidden="true"
+    ></div>
 
     <!-- Foto do hero: contida no mobile, com o card "+13" sobreposto no canto inferior direito -->
     <div class="md:hidden relative w-full h-[52vh] min-h-[380px] max-h-[560px] shrink-0">
@@ -233,7 +239,7 @@
             <div class="flex flex-col gap-8 max-w-[360px]">
               <div class="flex flex-col gap-6">
                 <p class="font-display font-medium text-2xl">Alan de Carvalho</p>
-                <p class="font-body text-sm leading-[1.4] text-gray-text">
+                <p class="font-body font-light text-sm leading-[1.4] text-gray-text">
                   Criando projetos com estratégia e criatividade transformando desafios
                   complexos em experiências digitais intuitivas, relevantes e impactantes.
                 </p>
@@ -253,15 +259,15 @@
 
         <div
           id="years-card"
-          class="hidden md:flex rounded-[40px] bg-[rgba(131,163,198,0.11)] p-8 w-[283px] flex-col gap-4 shrink-0 opacity-0 transition-opacity duration-700 ease-out"
+          class="hidden md:flex rounded-[40px] bg-[rgba(131,163,198,0.11)] px-6 py-6 w-fit h-[176px] flex-col items-start justify-center gap-4 shrink-0 opacity-0 transition-opacity duration-700 ease-out"
           style="
             backdrop-filter: url(#glass-distortion) blur(3px) saturate(160%);
             -webkit-backdrop-filter: blur(10px) saturate(160%);
             box-shadow: inset 0 1px 1px rgba(255,255,255,0.25), inset 0 -1px 1px rgba(0,0,0,0.15), 0 20px 40px rgba(0,0,0,0.35);
           "
         >
-          <p class="years-counter font-display font-light text-[64px] leading-[1.05]">+1</p>
-          <p class="font-display font-normal text-2xl w-[211px]">anos trabalhando como Designer</p>
+          <p class="years-counter font-display font-light text-[56px] leading-[1.05] whitespace-nowrap min-w-[97px]">+1</p>
+          <p class="font-display font-normal text-xl leading-[1.3] whitespace-nowrap">anos trabalhando<br />como Designer</p>
         </div>
       </div>
 
@@ -288,7 +294,7 @@
             Meu portifólio
           </h2>
         </div>
-        <p class="text-gray-text text-sm leading-[1.4] max-w-[682px]">
+        <p class="text-gray-text text-sm font-light leading-[1.4] max-w-[682px]">
           Segue a seguir quatro projetos do qual eu tenho orgulho.
           <br class="hidden sm:block" />
           Apresento de forma resumida a metodologia aplicada e os resutlados.
@@ -416,7 +422,7 @@
               Double Diamond
             </h2>
           </div>
-          <p class="text-gray-text text-sm leading-[1.4]">
+          <p class="text-gray-text text-sm font-light leading-[1.4]">
             Para entregar um projeto que traga valor para o cliente, sempre sigo a metodologia da Double Diamond,
             unindo assim as necessidades do usuário com o negócio da empresa.
           </p>
@@ -477,7 +483,7 @@
                 </div>
                 <div class="flex flex-col gap-4">
                   <p class="font-display font-medium text-2xl text-white">Primeira etapa</p>
-                  <p class="font-body text-sm leading-[1.4] text-gray-text">
+                  <p class="font-body font-light text-sm leading-[1.4] text-gray-text">
                     No Double Diamond, a etapa de Research (Discover) é o momento de entender profundamente o
                     problema e as necessidades dos usuários, antes de pensar em soluções.<br /><br />
                     <span class="font-bold">Objetivo:</span> sair de suposições e obter evidências e insights reais
@@ -513,7 +519,7 @@
                 </div>
                 <div class="flex flex-col gap-4">
                   <p class="font-display font-medium text-2xl text-white">Segunda etapa</p>
-                  <p class="font-body text-sm leading-[1.4] text-gray-text">
+                  <p class="font-body font-light text-sm leading-[1.4] text-gray-text">
                     Na etapa de Design (Define), as descobertas do Research são organizadas e sintetizadas para
                     definir com clareza o problema certo a ser resolvido.<br /><br />
                     <span class="font-bold">Objetivo:</span> transformar insights em direcionamentos claros de
@@ -549,7 +555,7 @@
                 </div>
                 <div class="flex flex-col gap-4">
                   <p class="font-display font-medium text-2xl text-white">Terceira etapa</p>
-                  <p class="font-body text-sm leading-[1.4] text-gray-text">
+                  <p class="font-body font-light text-sm leading-[1.4] text-gray-text">
                     No Develop, as soluções são prototipadas, testadas e refinadas com usuários reais até
                     encontrarmos a que melhor resolve o problema.<br /><br />
                     <span class="font-bold">Objetivo:</span> validar hipóteses e iterar rapidamente antes da
@@ -585,7 +591,7 @@
                 </div>
                 <div class="flex flex-col gap-4">
                   <p class="font-display font-medium text-2xl text-white">Quarta etapa</p>
-                  <p class="font-body text-sm leading-[1.4] text-gray-text">
+                  <p class="font-body font-light text-sm leading-[1.4] text-gray-text">
                     No Handoff (Deliver), a solução final é entregue com toda a documentação necessária para o
                     time de desenvolvimento implementar com fidelidade.<br /><br />
                     <span class="font-bold">Objetivo:</span> garantir uma entrega clara, organizada e sem
@@ -637,7 +643,7 @@
         >
           <div class="flex flex-col gap-4 md:max-w-[70%] lg:max-w-[560px]">
             <p class="font-display font-medium text-2xl text-white">Alan de Carvalho</p>
-            <div class="flex flex-col gap-4 text-gray-text text-sm leading-[1.4] font-body">
+            <div class="flex flex-col gap-4 text-gray-text text-sm font-light leading-[1.4] font-body">
               <p>
                 Já estou há 14 anos nesse mundo do design, nesse tempo eu tive oportunidade de passar por vários
                 aprendizados, trabalhei com projetos editoriais, com campanhas, com vídeos, com marketing digital,
@@ -671,7 +677,7 @@
           "
         >
           <p class="about-counter font-display font-medium text-[48px] lg:text-[64px] text-lime leading-none" data-target="20" data-prefix="+">+0</p>
-          <p class="text-gray-text text-sm leading-[1.4] font-body">
+          <p class="text-gray-text text-sm font-light leading-[1.4] font-body">
             Já ajudei a transformar o negócio de mais de 20 empresas
           </p>
         </div>
@@ -685,7 +691,7 @@
           "
         >
           <p class="about-counter font-display font-medium text-[48px] lg:text-[64px] text-lime leading-none" data-target="3" data-prefix="">0</p>
-          <p class="text-gray-text text-sm leading-[1.4] font-body">
+          <p class="text-gray-text text-sm font-light leading-[1.4] font-body">
             Além de falar português, também sou formado em Inglês e Francês.
           </p>
         </div>
@@ -713,7 +719,7 @@
           "
         >
           <p class="about-counter font-display font-medium text-[48px] lg:text-[64px] text-lime leading-none" data-target="9" data-prefix="">0</p>
-          <p class="text-gray-text text-sm leading-[1.4] font-body">
+          <p class="text-gray-text text-sm font-light leading-[1.4] font-body">
             Conquistei 8 medalhas de ouro no evento chamado GRAN PIX
           </p>
         </div>
@@ -765,7 +771,7 @@
 
           <div class="flex items-start justify-between gap-6 w-full sm:w-auto sm:justify-start sm:gap-10">
             <div class="flex flex-col gap-3 items-start">
-              <p class="text-gray-text text-xs font-body">Links</p>
+              <p class="text-gray-text text-xs font-light font-body">Links</p>
               <nav class="flex flex-col gap-2">
                 <a href="#portfolio" class="text-white text-sm font-display hover:text-lime transition-colors duration-200">Meu portifólio</a>
                 <a href="#double-diamond" class="text-white text-sm font-display hover:text-lime transition-colors duration-200">Double diamond</a>
@@ -792,7 +798,7 @@
               alt="Logo Alan"
               class="w-8 h-7"
             />
-            <p class="text-gray-text text-sm font-body">Copyright &copy; 2026 AlanCarvalho.</p>
+            <p class="text-gray-text text-sm font-light font-body">Copyright &copy; 2026 AlanCarvalho.</p>
           </div>
 
           <a href="https://gerador-link.devzapp.com.br/s/2RMDtu" target="_blank" rel="noopener" class="portfolio-btn">
@@ -1241,12 +1247,17 @@
 
       var mountedAt = Date.now();
 
-      // Timestamps (seconds) matched to this specific video's look
-      // directions. Re-check these if the source video is ever swapped again.
-      var LEFT_TIME = 1.8; // 2.0 has visible motion-blur on the eye
-      var RIGHT_TIME = 5;
-      var UP_TIME = 3;
-      var DOWN_TIME = 7;
+      // Five reference mouse zones (normalized x/y over the header area) each
+      // paired with the video timestamp that should play there, calibrated
+      // from the user's annotated reference screenshot. Re-check these if
+      // the source video is ever swapped again.
+      var ZONES = [
+        { x: 0.15, y: 0.2, time: 4 }, // canto esquerdo superior
+        { x: 0.15, y: 0.8, time: 3 }, // canto esquerdo inferior
+        { x: 0.5, y: 0.5, time: 7 }, // centro
+        { x: 0.85, y: 0.2, time: 8 }, // canto direito superior
+        { x: 0.85, y: 0.8, time: 10 } // canto direito inferior
+      ];
       var SMOOTHING = 0.22; // 0.02 - 1, higher = snappier
       var EPSILON = 0.008;
 
@@ -1296,19 +1307,22 @@
         normY = clamp01((e.clientY - rect.top) / rect.height);
       }
 
-      // Header split into three horizontal bands: left/right map straight to
-      // LEFT/RIGHT regardless of vertical position (constant across the
-      // whole band, not blended toward the center), and only the middle
-      // looks at vertical position to choose UP vs DOWN. The left boundary
-      // is measured to the text column's right edge (not a plain third) so
-      // the head stays put for as long as the cursor is over the text.
-      var LEFT_BOUNDARY = 0.5;
-      var RIGHT_BOUNDARY = 2 / 3;
-
+      // Inverse-distance blend across the five reference zones: closer zones
+      // dominate, and the result is continuous everywhere (no hard edges).
       function computeTargetTime() {
-        if (normX < LEFT_BOUNDARY) return LEFT_TIME;
-        if (normX > RIGHT_BOUNDARY) return RIGHT_TIME;
-        return UP_TIME + (DOWN_TIME - UP_TIME) * normY;
+        var totalWeight = 0;
+        var weightedTime = 0;
+        for (var i = 0; i < ZONES.length; i++) {
+          var zone = ZONES[i];
+          var dx = normX - zone.x;
+          var dy = normY - zone.y;
+          var distSq = dx * dx + dy * dy;
+          if (distSq < 0.0001) return zone.time;
+          var weight = 1 / (distSq * distSq);
+          totalWeight += weight;
+          weightedTime += weight * zone.time;
+        }
+        return weightedTime / totalWeight;
       }
 
       function tick() {
