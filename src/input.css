@@ -4,7 +4,7 @@
 
 @layer components {
   .portfolio-tag {
-    @apply inline-flex items-center gap-1.5 h-10 px-4 py-3 rounded-full text-lime text-sm font-normal whitespace-nowrap;
+    @apply inline-flex items-center gap-1.5 h-10 px-4 py-3 rounded-full text-lime text-sm font-light whitespace-nowrap;
     background: rgba(217, 253, 24, 0.1);
     border: 1px solid rgba(217, 253, 24, 0.1);
     backdrop-filter: blur(10px);
