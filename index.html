@@ -601,11 +601,15 @@
       <div class="reveal grid grid-cols-1 md:grid-cols-4 gap-4" style="transition-delay: 120ms">
         <!-- Foto (cutout sobre fundo lime, igual ao Figma) -->
         <div class="relative md:col-span-1 h-[242px] md:h-auto rounded-[32px] lg:rounded-[40px] bg-lime">
-          <img
-            src="assets/about-photo-cutout.png"
-            alt="Alan de Carvalho"
-            class="pointer-events-none select-none absolute left-1/2 -translate-x-1/2 top-[-32px] h-[calc(100%+50px)] w-auto max-w-none"
-          />
+          <div class="absolute left-1/2 -translate-x-1/2 top-[-32px] h-[calc(100%+50px)] inline-block">
+            <div class="entrance-pop h-full inline-block">
+              <img
+                src="assets/about-photo-cutout.png"
+                alt="Alan de Carvalho"
+                class="pointer-events-none select-none block h-full w-auto max-w-none"
+              />
+            </div>
+          </div>
         </div>
 
         <!-- Card glass com a bio -->
@@ -680,7 +684,7 @@
             <img
               src="assets/about-trophy.png"
               alt="Troféu de 1º lugar"
-              class="pointer-events-none select-none h-[70%] w-auto"
+              class="entrance-pop pointer-events-none select-none h-[70%] w-auto"
             />
           </div>
         </div>
