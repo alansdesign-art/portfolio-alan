@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+/* The site is dark-themed by design, not via prefers-color-scheme. This
+   tells the browser not to auto-darken/invert it (Android's "force dark"
+   and similar heuristics), which was shifting the lime brand color. */
+html {
+  color-scheme: dark;
+}
+
 @layer components {
   .portfolio-tag {
     @apply inline-flex items-center gap-1.5 h-10 px-4 py-3 rounded-full text-lime text-sm font-light whitespace-nowrap;
