@@ -4,9 +4,21 @@
 
 /* The site is dark-themed by design, not via prefers-color-scheme. This
    tells the browser not to auto-darken/invert it (Android's "force dark"
-   and similar heuristics), which was shifting the lime brand color. */
+   and similar heuristics), which was shifting the lime brand color.
+   color-scheme alone isn't always enough on some Android browsers, so
+   forced-color-adjust: none is a second, stronger opt-out applied to the
+   whole page and reasserted specifically on every lime-colored element. */
 html {
   color-scheme: dark;
+  forced-color-adjust: none;
+}
+
+.text-lime,
+.bg-lime,
+.border-lime,
+.portfolio-tag,
+.portfolio-btn {
+  forced-color-adjust: none;
 }
 
 @layer components {
