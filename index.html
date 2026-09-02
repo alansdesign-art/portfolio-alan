@@ -154,7 +154,7 @@
         <video
           id="hero-scrub-video"
           class="absolute"
-          style="top: 0; height: 100%; width: auto; max-width: none; left: 100%; transform: translateX(-75%); mask-image: linear-gradient(to right, transparent 0%, black 28%, black 72%, transparent 100%); -webkit-mask-image: linear-gradient(to right, transparent 0%, black 28%, black 72%, transparent 100%); opacity: 0; transition: opacity 900ms ease-out"
+          style="top: 0; height: 100%; width: auto; max-width: none; left: 100%; transform: translateX(-75%); mask-image: linear-gradient(to right, transparent 0%, black 28%, black 72%, transparent 100%); -webkit-mask-image: linear-gradient(to right, transparent 0%, black 28%, black 72%, transparent 100%)"
           muted
           playsinline
           preload="auto"
@@ -356,8 +356,8 @@
         <div class="reveal group relative h-[300px] md:h-auto md:aspect-[604/500] md:max-h-[500px] rounded-[32px] lg:rounded-[64px] overflow-hidden bg-[#1a1a1c] border border-[rgba(153,153,153,0.6)] flex flex-col" style="transition-delay: 280ms">
           <div class="order-1 relative z-10 flex flex-col gap-4 p-4 lg:p-8 md:pointer-events-none">
             <div class="flex gap-3 flex-wrap">
-              <span class="portfolio-tag text-xs h-8 px-4 py-3 gap-1 lg:text-sm lg:h-10 lg:px-4 lg:py-3 lg:gap-1.5"><i class="fa-solid fa-display" aria-hidden="true"></i>Website</span>
-              <span class="portfolio-tag text-xs h-8 px-4 py-3 gap-1 lg:text-sm lg:h-10 lg:px-4 lg:py-3 lg:gap-1.5"><i class="fa-solid fa-mobile-screen-button" aria-hidden="true"></i>Aplicativo</span>
+              <span class="portfolio-tag text-xs h-8 px-4 py-3 gap-1 lg:text-sm lg:h-10 lg:px-4 lg:py-3 lg:gap-1.5"><i class="fa-solid fa-palette" aria-hidden="true"></i>Branding</span>
+              <span class="portfolio-tag text-xs h-8 px-4 py-3 gap-1 lg:text-sm lg:h-10 lg:px-4 lg:py-3 lg:gap-1.5"><i class="fa-solid fa-clapperboard" aria-hidden="true"></i>Motion</span>
             </div>
             <p class="font-display font-light text-sm text-[#dadada]" style="font-feature-settings: '&quot;salt&quot; 1'">
               Campanha que rodou na Times Square
@@ -590,7 +590,7 @@
   </section>
 
   <section id="sobre" class="relative z-10 px-6 pt-[32px] md:pt-[64px] pb-[64px] md:pb-[128px]">
-    <div class="w-full max-w-[1224px] mx-auto flex flex-col gap-8">
+    <div class="w-full max-w-[1224px] mx-auto flex flex-col">
       <div class="reveal flex flex-col items-center gap-4 text-center">
         <p class="text-lime text-lg font-body">Minha biografia</p>
         <h2 class="font-display font-semibold text-white text-[32px] sm:text-[48px] lg:text-[64px] leading-[1.05]">
@@ -598,14 +598,18 @@
         </h2>
       </div>
 
-      <div class="reveal grid grid-cols-1 md:grid-cols-4 gap-4" style="transition-delay: 120ms">
+      <div class="reveal grid grid-cols-1 md:grid-cols-4 gap-4 mt-8 md:mt-16" style="transition-delay: 120ms">
         <!-- Foto (cutout sobre fundo lime, igual ao Figma) -->
         <div class="relative md:col-span-1 h-[242px] md:h-auto rounded-[32px] lg:rounded-[40px] bg-lime">
-          <img
-            src="assets/about-photo-cutout.png"
-            alt="Alan de Carvalho"
-            class="pointer-events-none select-none absolute left-1/2 -translate-x-1/2 top-[-32px] h-[calc(100%+50px)] w-auto max-w-none"
-          />
+          <div class="absolute left-1/2 -translate-x-1/2 top-[-32px] h-[calc(100%+50px)] inline-block">
+            <div class="entrance-pop h-full inline-block">
+              <img
+                src="assets/about-photo-cutout.png"
+                alt="Alan de Carvalho"
+                class="pointer-events-none select-none block h-full w-auto max-w-none"
+              />
+            </div>
+          </div>
         </div>
 
         <!-- Card glass com a bio -->
@@ -643,7 +647,7 @@
         </div>
       </div>
 
-      <div id="about-stats" class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      <div id="about-stats" class="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
         <div
           class="about-stat opacity-0 transition-opacity duration-700 ease-out rounded-[32px] lg:rounded-[40px] bg-[rgba(131,163,198,0.11)] border border-white/10 p-6 lg:p-8 flex flex-col justify-between gap-8 h-[225px] lg:h-[248px]"
           style="
@@ -673,16 +677,20 @@
         </div>
 
         <div class="about-stat opacity-0 transition-opacity duration-700 ease-out relative h-[225px] lg:h-[248px]">
-          <div class="pointer-events-none absolute -inset-6 rounded-[40px] bg-[#D9FD18] opacity-40 blur-3xl"></div>
+          <div class="pointer-events-none absolute -inset-6 rounded-[40px] bg-[#D9FD18] opacity-20 blur-3xl"></div>
           <div
-            class="relative h-full rounded-[32px] lg:rounded-[40px] overflow-hidden border border-white/10 flex items-center justify-center bg-[rgba(217,253,24,0.15)]"
+            class="relative h-full rounded-[32px] lg:rounded-[40px] border border-white/10 flex items-center justify-center bg-[rgba(217,253,24,0.15)]"
             style="
               backdrop-filter: url(#glass-distortion) blur(3px) saturate(160%);
               -webkit-backdrop-filter: blur(10px) saturate(160%);
               box-shadow: inset 0 1px 1px rgba(255,255,255,0.25), inset 0 -1px 1px rgba(0,0,0,0.15), 0 20px 40px rgba(0,0,0,0.35);
             "
           >
-            <img src="assets/about-medal.jpeg" alt="Medalha de ouro" class="w-full h-full object-cover object-center" />
+            <img
+              src="assets/about-trophy.png"
+              alt="Troféu de 1º lugar"
+              class="entrance-pop pointer-events-none select-none h-[70%] w-auto"
+            />
           </div>
         </div>
 
@@ -1323,12 +1331,6 @@
       video.play().then(function () {
         video.pause();
       }).catch(function () {});
-
-      // Fade the video (and its poster) in smoothly instead of popping in.
-      // setTimeout (not rAF) so it still fires promptly on a backgrounded tab.
-      setTimeout(function () {
-        video.style.opacity = '1';
-      }, 20);
 
       rafId = requestAnimationFrame(tick);
 
