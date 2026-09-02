@@ -599,12 +599,12 @@
       </div>
 
       <div class="reveal grid grid-cols-1 md:grid-cols-4 gap-4" style="transition-delay: 120ms">
-        <!-- Foto (cutout sobre fundo lime, igual ao Figma) -->
-        <div class="relative md:col-span-1 h-[242px] md:h-auto rounded-[32px] lg:rounded-[40px] bg-lime">
+        <!-- Foto (fundo lime já embutido na imagem) -->
+        <div class="relative md:col-span-1 h-[242px] md:h-auto rounded-[32px] lg:rounded-[40px] overflow-hidden">
           <img
-            src="assets/about-photo-cutout.png"
+            src="assets/about-photo-cutout-green.png"
             alt="Alan de Carvalho"
-            class="pointer-events-none select-none absolute left-1/2 -translate-x-1/2 top-[-32px] h-[calc(100%+50px)] w-auto max-w-none"
+            class="pointer-events-none select-none absolute inset-0 w-full h-full object-contain"
           />
         </div>
 
