@@ -192,7 +192,7 @@
       <!-- ===================== DISCOVERY + PERSONAS (painel escuro) ===================== -->
       <section class="relative rounded-xl px-6 md:px-[72px] pb-16 md:pb-[120px] flex flex-col gap-16 md:gap-[120px]">
 
-        <div id="discovery-phone-mockup" class="hidden lg:block absolute z-20 w-[70%] max-w-[1020px]" style="aspect-ratio: 1020 / 892;">
+        <div id="discovery-phone-mockup" class="hidden lg:block absolute z-20 w-[48%] max-w-[692px]" style="aspect-ratio: 692 / 892;">
           <img src="assets/portfolio/junovaes/figma/mockup-celular.png" alt="Mão segurando um celular com a landing page aberta na seção Vantagens de quem fala inglês" class="w-full h-full object-cover" />
         </div>
 
@@ -224,7 +224,7 @@
               </div>
             </div>
 
-            <div class="rounded-[32px] md:rounded-[54px] p-6 md:p-8 flex flex-col items-start gap-8 w-full bg-white/[0.04] backdrop-blur-[10px] border border-white/10">
+            <div id="discovery-card-objetivos" class="rounded-[32px] md:rounded-[54px] p-6 md:p-8 flex flex-col items-start gap-8 w-full bg-white/[0.04] backdrop-blur-[10px] border border-white/10">
               <span class="inline-flex items-center justify-center h-10 px-4 rounded-full backdrop-blur-[10px] bg-[rgba(228,54,54,0.1)] border border-[rgba(228,54,54,0.4)] text-[#e43636]">
                 <i class="fa-solid fa-bug" aria-hidden="true"></i>
               </span>
@@ -573,8 +573,8 @@
   <script>
     (function () {
       var el = document.getElementById('discovery-phone-mockup');
-      var cards = document.getElementById('discovery-cards');
-      if (!el || !cards) return;
+      var objetivosCard = document.getElementById('discovery-card-objetivos');
+      if (!el || !objetivosCard) return;
 
       var section = el.closest('section');
 
@@ -582,9 +582,10 @@
         var offset = Math.min(0, (1200 - document.documentElement.clientWidth) / 2);
         el.style.right = offset + 'px';
 
-        var cardsBottom = cards.getBoundingClientRect().bottom;
+        var cardRect = objetivosCard.getBoundingClientRect();
         var sectionTop = section.getBoundingClientRect().top;
-        el.style.top = (cardsBottom - sectionTop + 124) + 'px';
+        var cardCenter = cardRect.top + cardRect.height / 2;
+        el.style.top = (cardCenter - sectionTop - el.offsetHeight / 2) + 'px';
       }
 
       alignMockup();
