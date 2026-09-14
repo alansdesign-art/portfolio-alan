@@ -194,7 +194,7 @@
 
         <div class="pointer-events-none absolute -z-0 right-0 top-[120px] w-[70%] max-w-[1020px] h-[500px] md:h-[892px] opacity-60 md:opacity-100" aria-hidden="true">
           <img src="assets/portfolio/junovaes/figma/adobestock-bg.png" alt="" class="w-full h-full object-cover" />
-          <div class="absolute inset-0" style="background-image: linear-gradient(200deg, #23211d 19%, rgba(35,33,29,0.6) 29%, rgba(35,33,29,0) 39%)"></div>
+          <div class="absolute inset-0" style="background-image: linear-gradient(-22.14deg, #23211d 19.06%, rgba(35,33,29,0.6) 29.03%, rgba(35,33,29,0) 38.85%)"></div>
         </div>
 
         <div class="relative z-10 flex flex-col gap-10 md:gap-[72px]">
@@ -210,7 +210,7 @@
 
           <!-- Cards Problemas / Objetivos (empilhados, com o print do WhatsApp flutuando por cima à direita) -->
           <div class="relative max-w-[674px] w-full flex flex-col gap-12">
-            <div class="rounded-[32px] md:rounded-[54px] p-6 md:p-8 flex flex-col items-start gap-8 w-full">
+            <div class="rounded-[32px] md:rounded-[54px] p-6 md:p-8 flex flex-col items-start gap-8 w-full bg-white/[0.04] backdrop-blur-[10px] border border-white/10">
               <span class="inline-flex items-center justify-center h-10 px-4 rounded-full backdrop-blur-[10px] bg-[rgba(228,54,54,0.1)] border border-[rgba(228,54,54,0.4)] text-[#e43636]">
                 <i class="fa-solid fa-bug" aria-hidden="true"></i>
               </span>
@@ -225,7 +225,7 @@
               </div>
             </div>
 
-            <div class="rounded-[32px] md:rounded-[54px] p-6 md:p-8 flex flex-col items-start gap-8 w-full">
+            <div class="rounded-[32px] md:rounded-[54px] p-6 md:p-8 flex flex-col items-start gap-8 w-full bg-white/[0.04] backdrop-blur-[10px] border border-white/10">
               <span class="inline-flex items-center justify-center h-10 px-4 rounded-full backdrop-blur-[10px] bg-[rgba(228,54,54,0.1)] border border-[rgba(228,54,54,0.4)] text-[#e43636]">
                 <i class="fa-solid fa-bug" aria-hidden="true"></i>
               </span>
@@ -240,7 +240,14 @@
               </div>
             </div>
 
-            <div class="hidden lg:block absolute rounded-[36px] overflow-hidden shadow-[8px_4px_24px_rgba(0,0,0,0.35)]" style="left: 608px; top: 115px; width: 259px; height: 564px;">
+            <div
+              class="hidden lg:block absolute rounded-[36px] overflow-hidden shadow-[8px_4px_24px_rgba(0,0,0,0.35)]"
+              style="
+                left: 608px; top: 115px; width: 259px; height: 564px;
+                -webkit-mask-image: linear-gradient(to bottom, black 0%, black 82%, transparent 100%);
+                mask-image: linear-gradient(to bottom, black 0%, black 82%, transparent 100%);
+              "
+            >
               <img src="assets/portfolio/junovaes/figma/whatsapp-image.png" alt="Print de celular mostrando a landing page com a seção Vantagens de quem fala inglês" class="w-full h-full object-cover" />
             </div>
           </div>
