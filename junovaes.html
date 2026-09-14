@@ -192,10 +192,6 @@
       <!-- ===================== DISCOVERY + PERSONAS (painel escuro) ===================== -->
       <section class="relative rounded-xl px-6 md:px-[72px] pb-16 md:pb-[120px] flex flex-col gap-16 md:gap-[120px]">
 
-        <div id="discovery-phone-mockup" class="hidden lg:block absolute z-20 w-[48%] max-w-[692px]" style="aspect-ratio: 692 / 892;">
-          <img src="assets/portfolio/junovaes/figma/mockup-celular.png" alt="Mão segurando um celular com a landing page aberta na seção Vantagens de quem fala inglês" class="w-full h-full object-cover" />
-        </div>
-
         <div class="relative z-10 flex flex-col gap-10 md:gap-[72px]">
           <div class="flex flex-col gap-6 md:gap-12">
             <div class="flex gap-4 items-center">
@@ -207,36 +203,42 @@
             </p>
           </div>
 
-          <!-- Cards Problemas / Objetivos (empilhados, com o print do WhatsApp flutuando por cima à direita) -->
-          <div id="discovery-cards" class="relative max-w-[674px] w-full flex flex-col gap-12">
-            <div id="discovery-card-problemas" class="rounded-[32px] md:rounded-[54px] p-6 md:p-8 flex flex-col items-start gap-8 w-full bg-white/[0.04] backdrop-blur-[10px] border border-white/10">
-              <span class="inline-flex items-center justify-center h-10 px-4 rounded-full backdrop-blur-[10px] bg-[rgba(228,54,54,0.1)] border border-[rgba(228,54,54,0.4)] text-[#e43636]">
-                <i class="fa-solid fa-bug" aria-hidden="true"></i>
-              </span>
-              <div class="flex flex-col gap-6">
-                <h3 class="font-display font-medium text-2xl text-white">Problemas</h3>
-                <ul class="list-disc pl-5 flex flex-col gap-2 font-body text-sm text-gray-text">
-                  <li>Falta de uma identidade visual que converse com o público alvo.</li>
-                  <li>Falta de posicionamento digital.</li>
-                  <li>Falta de storytelling.</li>
-                  <li>Dificuldade em conseguir mais alunos.</li>
-                </ul>
+          <!-- Cards Problemas / Objetivos lado a lado com o mockup do celular, que se sobrepõe via margem negativa (-180px), igual ao node 203:413 do Figma -->
+          <div class="flex flex-col lg:flex-row lg:items-center gap-12 lg:gap-0">
+            <div class="relative z-10 max-w-[674px] w-full flex flex-col gap-12 lg:gap-[72px] lg:mr-[-180px]">
+              <div class="rounded-[32px] md:rounded-[54px] p-6 md:p-8 flex flex-col items-start gap-8 w-full bg-white/[0.04] backdrop-blur-[10px] border border-white/10">
+                <span class="inline-flex items-center justify-center h-10 px-4 rounded-full backdrop-blur-[10px] bg-[rgba(228,54,54,0.1)] border border-[rgba(228,54,54,0.4)] text-[#e43636]">
+                  <i class="fa-solid fa-bug" aria-hidden="true"></i>
+                </span>
+                <div class="flex flex-col gap-6">
+                  <h3 class="font-display font-medium text-2xl text-white">Problemas</h3>
+                  <ul class="list-disc pl-5 flex flex-col gap-2 font-body text-sm text-gray-text">
+                    <li>Falta de uma identidade visual que converse com o público alvo.</li>
+                    <li>Falta de posicionamento digital.</li>
+                    <li>Falta de storytelling.</li>
+                    <li>Dificuldade em conseguir mais alunos.</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="rounded-[32px] md:rounded-[54px] p-6 md:p-8 flex flex-col items-start gap-8 w-full bg-white/[0.04] backdrop-blur-[10px] border border-white/10">
+                <span class="inline-flex items-center justify-center h-10 px-4 rounded-full backdrop-blur-[10px] bg-[rgba(228,54,54,0.1)] border border-[rgba(228,54,54,0.4)] text-[#e43636]">
+                  <i class="fa-solid fa-bug" aria-hidden="true"></i>
+                </span>
+                <div class="flex flex-col gap-6">
+                  <h3 class="font-display font-medium text-2xl text-white">Objetivos</h3>
+                  <ol class="list-decimal pl-5 flex flex-col gap-2 font-body text-sm text-gray-text">
+                    <li>Executar o reposicionamentos estratégico da marca para alinhar sua <span class="font-bold">identidade visual</span> e <span class="font-bold">verbal</span> às expectativas do público-alvo, otimizando a percepção de valor e a relevância no mercado.</li>
+                    <li>Identificar padrões comportamentais, dores e motivações, fundamentando a <span class="font-bold">criação de personas</span> estratégicas.</li>
+                    <li>Desenvolvimento de uma narrativa de marca (<span class="font-bold">storytelling</span>) estratégica para humanizar a comunicação e aumentar o engajamento com o público-alvo.</li>
+                    <li>Desenvolvimento de uma <span class="font-bold">Landing Page</span> de alta performance, estruturada com foco em CRO (Conversion Rate Optimization) para maximizar a geração de leads e a conversão de novos alunos.</li>
+                  </ol>
+                </div>
               </div>
             </div>
 
-            <div id="discovery-card-objetivos" class="rounded-[32px] md:rounded-[54px] p-6 md:p-8 flex flex-col items-start gap-8 w-full bg-white/[0.04] backdrop-blur-[10px] border border-white/10">
-              <span class="inline-flex items-center justify-center h-10 px-4 rounded-full backdrop-blur-[10px] bg-[rgba(228,54,54,0.1)] border border-[rgba(228,54,54,0.4)] text-[#e43636]">
-                <i class="fa-solid fa-bug" aria-hidden="true"></i>
-              </span>
-              <div class="flex flex-col gap-6">
-                <h3 class="font-display font-medium text-2xl text-white">Objetivos</h3>
-                <ol class="list-decimal pl-5 flex flex-col gap-2 font-body text-sm text-gray-text">
-                  <li>Executar o reposicionamentos estratégico da marca para alinhar sua <span class="font-bold">identidade visual</span> e <span class="font-bold">verbal</span> às expectativas do público-alvo, otimizando a percepção de valor e a relevância no mercado.</li>
-                  <li>Identificar padrões comportamentais, dores e motivações, fundamentando a <span class="font-bold">criação de personas</span> estratégicas.</li>
-                  <li>Desenvolvimento de uma narrativa de marca (<span class="font-bold">storytelling</span>) estratégica para humanizar a comunicação e aumentar o engajamento com o público-alvo.</li>
-                  <li>Desenvolvimento de uma <span class="font-bold">Landing Page</span> de alta performance, estruturada com foco em CRO (Conversion Rate Optimization) para maximizar a geração de leads e a conversão de novos alunos.</li>
-                </ol>
-              </div>
+            <div class="hidden lg:flex items-center shrink-0">
+              <img src="assets/portfolio/junovaes/figma/mockup-celular.png" alt="Mão segurando um celular com a landing page aberta na seção Vantagens de quem fala inglês" class="w-[692px] max-w-none h-[892px] object-cover" />
             </div>
           </div>
         </div>
@@ -567,29 +569,6 @@
       );
 
       items.forEach(function (el) { observer.observe(el); });
-    })();
-  </script>
-
-  <script>
-    (function () {
-      var el = document.getElementById('discovery-phone-mockup');
-      var problemasCard = document.getElementById('discovery-card-problemas');
-      if (!el || !problemasCard) return;
-
-      var section = el.closest('section');
-      var overlapIntoCards = 60;
-
-      function alignMockup() {
-        var offset = Math.min(0, (1200 - document.documentElement.clientWidth) / 2) + overlapIntoCards;
-        el.style.right = offset + 'px';
-
-        var cardRect = problemasCard.getBoundingClientRect();
-        var sectionTop = section.getBoundingClientRect().top;
-        el.style.top = (cardRect.bottom - sectionTop - 40) + 'px';
-      }
-
-      alignMockup();
-      window.addEventListener('resize', alignMockup);
     })();
   </script>
 
