@@ -190,9 +190,9 @@
       </section>
 
       <!-- ===================== DISCOVERY + PERSONAS (painel escuro) ===================== -->
-      <section class="relative overflow-hidden rounded-xl px-6 md:px-[72px] pb-16 md:pb-[120px] flex flex-col gap-16 md:gap-[120px]">
+      <section class="relative rounded-xl px-6 md:px-[72px] pb-16 md:pb-[120px] flex flex-col gap-16 md:gap-[120px]">
 
-        <div class="hidden lg:block absolute z-20 right-[80px] top-[80px] w-[32%] max-w-[430px]" style="aspect-ratio: 1020 / 892;">
+        <div id="discovery-phone-mockup" class="hidden lg:block absolute z-20 top-[120px] w-[70%] max-w-[1020px]" style="aspect-ratio: 1020 / 892;">
           <img src="assets/portfolio/junovaes/figma/mockup-celular.png" alt="Mão segurando um celular com a landing page aberta na seção Vantagens de quem fala inglês" class="w-full h-full object-cover" />
         </div>
 
@@ -214,8 +214,8 @@
                 <i class="fa-solid fa-bug" aria-hidden="true"></i>
               </span>
               <div class="flex flex-col gap-6">
-                <h3 class="font-display font-medium text-xl text-white">Problemas</h3>
-                <ul class="list-disc pl-5 flex flex-col gap-2 font-body text-xs text-gray-text">
+                <h3 class="font-display font-medium text-2xl text-white">Problemas</h3>
+                <ul class="list-disc pl-5 flex flex-col gap-2 font-body text-sm text-gray-text">
                   <li>Falta de uma identidade visual que converse com o público alvo.</li>
                   <li>Falta de posicionamento digital.</li>
                   <li>Falta de storytelling.</li>
@@ -229,8 +229,8 @@
                 <i class="fa-solid fa-bug" aria-hidden="true"></i>
               </span>
               <div class="flex flex-col gap-6">
-                <h3 class="font-display font-medium text-xl text-white">Objetivos</h3>
-                <ol class="list-decimal pl-5 flex flex-col gap-2 font-body text-xs text-gray-text">
+                <h3 class="font-display font-medium text-2xl text-white">Objetivos</h3>
+                <ol class="list-decimal pl-5 flex flex-col gap-2 font-body text-sm text-gray-text">
                   <li>Executar o reposicionamentos estratégico da marca para alinhar sua <span class="font-bold">identidade visual</span> e <span class="font-bold">verbal</span> às expectativas do público-alvo, otimizando a percepção de valor e a relevância no mercado.</li>
                   <li>Identificar padrões comportamentais, dores e motivações, fundamentando a <span class="font-bold">criação de personas</span> estratégicas.</li>
                   <li>Desenvolvimento de uma narrativa de marca (<span class="font-bold">storytelling</span>) estratégica para humanizar a comunicação e aumentar o engajamento com o público-alvo.</li>
@@ -567,6 +567,21 @@
       );
 
       items.forEach(function (el) { observer.observe(el); });
+    })();
+  </script>
+
+  <script>
+    (function () {
+      var el = document.getElementById('discovery-phone-mockup');
+      if (!el) return;
+
+      function alignToViewportEdge() {
+        var offset = Math.min(0, (1200 - document.documentElement.clientWidth) / 2);
+        el.style.right = offset + 'px';
+      }
+
+      alignToViewportEdge();
+      window.addEventListener('resize', alignToViewportEdge);
     })();
   </script>
 
