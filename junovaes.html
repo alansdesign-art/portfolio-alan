@@ -209,7 +209,7 @@
 
           <!-- Cards Problemas / Objetivos (empilhados, com o print do WhatsApp flutuando por cima à direita) -->
           <div id="discovery-cards" class="relative max-w-[674px] w-full flex flex-col gap-12">
-            <div class="rounded-[32px] md:rounded-[54px] p-6 md:p-8 flex flex-col items-start gap-8 w-full bg-white/[0.04] backdrop-blur-[10px] border border-white/10">
+            <div id="discovery-card-problemas" class="rounded-[32px] md:rounded-[54px] p-6 md:p-8 flex flex-col items-start gap-8 w-full bg-white/[0.04] backdrop-blur-[10px] border border-white/10">
               <span class="inline-flex items-center justify-center h-10 px-4 rounded-full backdrop-blur-[10px] bg-[rgba(228,54,54,0.1)] border border-[rgba(228,54,54,0.4)] text-[#e43636]">
                 <i class="fa-solid fa-bug" aria-hidden="true"></i>
               </span>
@@ -573,19 +573,19 @@
   <script>
     (function () {
       var el = document.getElementById('discovery-phone-mockup');
-      var objetivosCard = document.getElementById('discovery-card-objetivos');
-      if (!el || !objetivosCard) return;
+      var problemasCard = document.getElementById('discovery-card-problemas');
+      if (!el || !problemasCard) return;
 
       var section = el.closest('section');
+      var overlapIntoCards = 60;
 
       function alignMockup() {
-        var offset = Math.min(0, (1200 - document.documentElement.clientWidth) / 2);
+        var offset = Math.min(0, (1200 - document.documentElement.clientWidth) / 2) + overlapIntoCards;
         el.style.right = offset + 'px';
 
-        var cardRect = objetivosCard.getBoundingClientRect();
+        var cardRect = problemasCard.getBoundingClientRect();
         var sectionTop = section.getBoundingClientRect().top;
-        var cardCenter = cardRect.top + cardRect.height / 2;
-        el.style.top = (cardCenter - sectionTop - el.offsetHeight / 2) + 'px';
+        el.style.top = (cardRect.bottom - sectionTop - 40) + 'px';
       }
 
       alignMockup();
