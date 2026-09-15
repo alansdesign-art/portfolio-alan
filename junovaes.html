@@ -110,19 +110,12 @@
       <!-- ===================== HEADER / HERO ===================== -->
       <section class="relative overflow-hidden bg-[#0d0d0e]">
         <div class="relative flex flex-col md:flex-row items-center md:items-end justify-between gap-8 md:gap-10 px-6 md:px-[72px] pt-12 pb-10 md:py-[56px] md:min-h-[740px]">
-          <video
-            class="w-full max-w-[360px] h-auto mx-auto opacity-90 md:opacity-90 md:pointer-events-none md:absolute md:inset-0 md:mx-0 md:max-w-none md:w-[1104px] md:h-auto md:left-[170px] md:-top-[60px] md:object-cover"
+          <img
+            src="assets/portfolio/junovaes/figma/laptop-mockup.png"
+            alt=""
             aria-hidden="true"
-            poster="assets/portfolio/junovaes/figma/laptop-hero-poster.png"
-            autoplay
-            loop
-            muted
-            playsinline
-            preload="auto"
-            disableremoteplayback
-          >
-            <source src="assets/portfolio/junovaes/figma/laptop-hero-video.mp4" type="video/mp4" />
-          </video>
+            class="w-full max-w-[360px] h-auto mx-auto opacity-90 md:opacity-90 md:pointer-events-none md:absolute md:inset-0 md:mx-0 md:max-w-none md:w-[1104px] md:h-auto md:left-[170px] md:-top-[60px] md:object-cover"
+          />
 
           <div class="relative z-10 flex flex-col items-center md:items-end gap-4 md:gap-[14px] w-full md:w-auto md:self-end">
             <div class="flex flex-col md:flex-row md:items-end gap-3 md:gap-[14px] w-full">
@@ -403,20 +396,21 @@
 
       <!-- ===================== NOTEBOOK MOCKUP + LP (fundo escuro do site) ===================== -->
       <section class="flex flex-col gap-16 md:gap-[72px] px-6 md:px-[72px] py-16 md:py-[72px]">
-        <!-- Notebook mockup com o print da landing page composto na tela -->
-        <div class="relative w-full max-w-[900px] mx-auto" style="aspect-ratio: 1235 / 716">
-          <img
-            src="assets/portfolio/junovaes/figma/notebook-mockup.png"
-            alt=""
+        <!-- Vídeo do laptop mostrando a landing page navegada -->
+        <div class="relative w-full max-w-[900px] mx-auto" style="aspect-ratio: 1440 / 1080">
+          <video
+            class="absolute inset-0 w-full h-full object-contain"
             aria-hidden="true"
-            class="absolute inset-0 w-full h-full pointer-events-none"
-          />
-          <img
-            src="assets/portfolio/junovaes/figma/capa.png"
-            alt="Landing page — capa e hero"
-            class="absolute object-cover object-top"
-            style="left: 12.15%; top: 8.66%; width: 74.33%; height: 80.59%;"
-          />
+            poster="assets/portfolio/junovaes/figma/notebook-video-poster.png"
+            autoplay
+            loop
+            muted
+            playsinline
+            preload="auto"
+            disableremoteplayback
+          >
+            <source src="assets/portfolio/junovaes/figma/notebook-video.mp4" type="video/mp4" />
+          </video>
         </div>
 
         <!-- Páginas da landing page -->
