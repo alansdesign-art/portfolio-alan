@@ -1223,12 +1223,15 @@
       // paired with the video timestamp that should play there, calibrated
       // from the user's annotated reference screenshot. Re-check these if
       // the source video is ever swapped again.
+      // Video_alan_vs3.mp4 (7s @ 24fps): a continuous left-to-right head
+      // turn, no vertical (up/down) variation. Times below are the user's
+      // own timecodes (seconds:frames @ 24fps) converted to seconds.
       var ZONES = [
-        { x: 0.15, y: 0.2, time: 4 }, // canto esquerdo superior
-        { x: 0.15, y: 0.8, time: 3 }, // canto esquerdo inferior
-        { x: 0.5, y: 0.5, time: 7 }, // centro
-        { x: 0.85, y: 0.2, time: 8 }, // canto direito superior
-        { x: 0.85, y: 0.8, time: 10 } // canto direito inferior
+        { x: 0.15, y: 0.8, time: 0 }, // esquerda baixa (00:00)
+        { x: 0.15, y: 0.2, time: 1 + 20 / 24 }, // esquerda alta (01:20)
+        { x: 0.5, y: 0.5, time: 3 + 10 / 24 }, // centro (03:10)
+        { x: 0.85, y: 0.2, time: 5 + 10 / 24 }, // direita alta (05:10)
+        { x: 0.85, y: 0.8, time: 6 + 23 / 24 } // direita baixa (06:23)
       ];
       var SMOOTHING = 0.22; // 0.02 - 1, higher = snappier
       var EPSILON = 0.008;
