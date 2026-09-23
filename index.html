@@ -1241,15 +1241,14 @@
       // paired with the video timestamp that should play there, calibrated
       // from the user's annotated reference screenshot. Re-check these if
       // the source video is ever swapped again.
-      // Video_finalAlan menor.mp4 (8s @ 24fps): starts frontal, turns fully
-      // left (~2.0s), returns to frontal (~3.5-4.0s), then turns right until
-      // the end. Times were picked from that pose arc.
+      // Video_finalAlan menor.mp4 (8s @ 24fps). Times (mm:ss) given by the
+      // user for each mouse zone: 00:01, 00:02, 00:04, 00:05, 00:07.
       var ZONES = [
-        { x: 0.15, y: 0.8, time: 2.0 }, // esquerda baixa (virada máxima p/ esquerda)
-        { x: 0.15, y: 0.2, time: 2.5 }, // esquerda alta
-        { x: 0.5, y: 0.5, time: 3.75 }, // centro (frontal)
-        { x: 0.85, y: 0.2, time: 6.0 }, // direita alta
-        { x: 0.85, y: 0.8, time: 7.9 } // direita baixa (virada máxima p/ direita)
+        { x: 0.15, y: 0.8, time: 1 }, // esquerda baixa (00:01)
+        { x: 0.15, y: 0.2, time: 2 }, // esquerda alta (00:02)
+        { x: 0.5, y: 0.5, time: 4 }, // olhar central (00:04)
+        { x: 0.85, y: 0.2, time: 5 }, // olhar direita alta (00:05)
+        { x: 0.85, y: 0.8, time: 7 } // olhar direita baixa (00:07)
       ];
       var SMOOTHING = 0.22; // 0.02 - 1, higher = snappier
       var EPSILON = 0.008;
