@@ -6,8 +6,18 @@
   <meta name="color-scheme" content="dark" />
   <meta name="theme-color" content="#000000" />
   <title>Alan de Carvalho — Product Design</title>
-  <link rel="icon" href="/Favicon-ligth.svg" type="image/svg" media="(prefers-color-scheme: light)">
-  <link rel="icon" href="/Favicon-dark.svg" type="image/svg" media="(prefers-color-scheme: dark)">
+  <link rel="icon" id="favicon" href="/Favicon-ligth.svg" type="image/svg">
+  <script>
+    (function () {
+      var link = document.getElementById('favicon');
+      var mq = window.matchMedia('(prefers-color-scheme: dark)');
+      function applyFavicon() {
+        link.href = mq.matches ? '/Favicon-dark.svg' : '/Favicon-ligth.svg';
+      }
+      applyFavicon();
+      mq.addEventListener('change', applyFavicon);
+    })();
+  </script>
   <meta property="og:title" content="Alan - Product Designer" />
   <meta name="twitter:title" content="Alan - Product Designer" />
 
